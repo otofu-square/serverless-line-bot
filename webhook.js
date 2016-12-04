@@ -1,7 +1,7 @@
 'use strict';
 
-const LineMessagingAPI = require('./lib/line_messaging_api');
-const client = new LineMessagingAPI(process.env.lineChannelAccessToken);
+const all = require('./lib/all');
+const ping = require('./lib/ping');
 
 function createResponse(event) {
   return {
@@ -15,13 +15,11 @@ function createResponse(event) {
 
 module.exports.main = (event, context, callback) => {
   const lineEvent = JSON.parse(event.body).events[0];
+  const replyToken = lineEvent.replyToken;
 
-  if (lineEvent.message.text === 'ping') {
-    client.reply(lineEvent.replyToken, 'pong');
-  }
+  if (lineEvent.message.text === 'ping') ping(replyToken);
+  if (lineEvent.message.text === 'reminder all') all(replyToken);
 
   const response = createResponse(event);
   console.log(response);
-
-  callback(null, response);
 }
