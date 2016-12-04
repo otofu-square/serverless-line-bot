@@ -2,6 +2,7 @@
 
 const all = require('./lib/all');
 const ping = require('./lib/ping');
+const deleteBySubID = require('./lib/delete');
 
 function createResponse(event) {
   return {
@@ -16,10 +17,14 @@ function createResponse(event) {
 module.exports.main = (event, context, callback) => {
   const lineEvent = JSON.parse(event.body).events[0];
   const replyToken = lineEvent.replyToken;
+  const text = lineEvent.message.text;
 
-  if (lineEvent.message.text === 'ping') ping(replyToken);
-  if (lineEvent.message.text === 'reminder all') all(replyToken);
+  if (text === 'ping') ping(replyToken);
+  if (text === 'reminder all') all(replyToken);
+  if (text.match(/^reminder delete /)) {
+    deleteBySubID(replyToken, text.match(/^reminder delete (.*)/)[1]);
+  }
 
   const response = createResponse(event);
   console.log(response);
-}
+};

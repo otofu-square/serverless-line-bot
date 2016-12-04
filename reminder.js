@@ -18,9 +18,9 @@ module.exports = class Reminders {
 
   static create(to, cron, message) {
     const item = {
-      to: to,
-      cron: cron,
-      message: message,
+      to,
+      cron,
+      message,
     };
     item.id = uuid.v1();
     item.updatedUtc = moment().utc().toISOString();
@@ -33,44 +33,24 @@ module.exports = class Reminders {
     return dynamoDB.put(params).promise();
   }
 
-  constractor(to, cron, message) {
-    this.to = to;
-    this.cron = cron;
-    this.message = message;
+  static find(subId) {
+    const params = {
+      TableName: 'reminders',
+      FilterExpression: 'contains(id, :val)',
+      ExpressionAttributeValues: { ':val': subId },
+    };
+
+    return dynamoDB.scan(params).promise();
+  }
+
+  static delete(id) {
+    const params = {
+      TableName: 'reminders',
+      Key: {
+        id,
+      },
+    };
+
+    return dynamoDB.delete(params).promise();
   }
 };
-
-// module.exports.update = (db, id, item, callback) => {
-//   item.id = id;
-//   item.updatedAt = moment().utc().toISOString();
-//
-//   const params = {
-//     TableName : tableName,
-//     Item: item
-//   };
-//
-//   return db.put(params, (err, data) => {
-//     if (err) {
-//       callback(err);
-//     } else {
-//       callback(err, params.Item);
-//     }
-//   });
-// };
-//
-// module.exports.delete = (db, id, callback) => {
-//   const params = {
-//     TableName : tableName,
-//     Key: {
-//       id: id
-//     }
-//   };
-//
-//   return db.delete(params, (err, data) => {
-//     if (err) {
-//       callback(err);
-//     } else {
-//       callback(err, params.Key);
-//     }
-//   });
-// };
