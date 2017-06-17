@@ -1,24 +1,24 @@
-import all from './lib/all';
-import ping from './lib/ping';
-import create from './lib/create';
-import deleteBySubId from './lib/delete';
+import { all } from './lib/all';
+import { ping } from './lib/ping';
+import { create } from './lib/create';
+import { deleteBySubId } from './lib/deleteBySubId';
 
-const createResponse = event => ({
+const createResponse = (event: any): Object => ({
   statusCode: 200,
   body: JSON.stringify({
     message: 'Go Serverless v1.0! Your function executed successfully!',
-    body: event.body,
-  }),
+    body: event.body
+  })
 });
 
-const getFrom = (source) => {
+const getFrom = (source: any): string => {
   if (source.groupId) return source.groupId;
   if (source.roomId) return source.roomId;
   if (source.userId) return source.userId;
   return null;
 };
 
-export const main = (event, context, callback) => {
+export const main = (event, context, callback): void => {
   const lineEvent = JSON.parse(event.body).events[0];
   const replyToken = lineEvent.replyToken;
   const text = lineEvent.message.text;
@@ -27,7 +27,7 @@ export const main = (event, context, callback) => {
   if (text === 'ping') ping(replyToken);
   if (text === 'reminder all') all(replyToken);
   if (text.match(/^reminder delete /)) {
-    deleteBySubID(replyToken, text.match(/^reminder delete (.*)/)[1]);
+    deleteBySubId(replyToken, text.match(/^reminder delete (.*)/)[1]);
   }
   if (text.match(/^reminder add /)) {
     create(replyToken, from, text.match(/^reminder add (.*)/)[1]);
