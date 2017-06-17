@@ -1,28 +1,24 @@
-'use strict';
+import all from './lib/all';
+import ping from './lib/ping';
+import create from './lib/create';
+import deleteBySubId from './lib/delete';
 
-const all = require('./lib/all');
-const ping = require('./lib/ping');
-const create = require('./lib/create');
-const deleteBySubID = require('./lib/delete');
+const createResponse = event => ({
+  statusCode: 200,
+  body: JSON.stringify({
+    message: 'Go Serverless v1.0! Your function executed successfully!',
+    body: event.body,
+  }),
+});
 
-function createResponse(event) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      body: event.body,
-    }),
-  };
-}
-
-function getFrom(source) {
+const getFrom = (source) => {
   if (source.groupId) return source.groupId;
   if (source.roomId) return source.roomId;
   if (source.userId) return source.userId;
   return null;
-}
+};
 
-module.exports.main = (event, context, callback) => {
+export const main = (event, context, callback) => {
   const lineEvent = JSON.parse(event.body).events[0];
   const replyToken = lineEvent.replyToken;
   const text = lineEvent.message.text;

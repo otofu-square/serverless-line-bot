@@ -6,6 +6,9 @@
   "author": "otofu-square",
   "license": "ISC",
   "devDependencies": {
+    "@types/aws-lambda": "^0.0.13",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/node": "^7.0.31",
     "eslint": "^3.9.1",
     "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.1.0",
