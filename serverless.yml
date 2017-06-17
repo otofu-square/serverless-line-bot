@@ -2,7 +2,7 @@ service: serverless-line-bot
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs6.10
   region: ap-northeast-1
   iamRoleStatements:
   - Effect: Allow
@@ -50,3 +50,6 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: "reminders"
+
+plugins:
+  - serverless-plugin-typescript
