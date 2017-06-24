@@ -20,11 +20,11 @@ provider:
 
 functions:
   webhook:
-    handler: webhook.main
+    handler: src/webhook.main
     events:
       - http: POST webhook
   cron:
-    handler: cron.main
+    handler: src/cron.main
     events:
       - schedule: cron(0-55/5 * ? * * *)
       - schedule: cron(1-56/5 * ? * * *)
