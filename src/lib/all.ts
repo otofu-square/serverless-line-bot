@@ -13,8 +13,11 @@ const createResult = (data: Array<any>): string => {
   return str;
 };
 
-export const all = (replyToken: string): void => {
-  Reminders.all()
-    .then(data => client.reply(replyToken, createResult(data.Items)))
-    .catch(err => console.log(err));
+export const all = async (replyToken: string): Promise<void> => {
+  try {
+    const result: any = await Reminders.all();
+    await client.reply(replyToken, createResult(result.Items));
+  } catch (e) {
+    console.log(e);
+  }
 };
