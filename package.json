@@ -6,6 +6,7 @@
   "author": "otofu-square",
   "license": "ISC",
   "devDependencies": {
+    "aws-sdk": "^2.7.10",
     "@types/aws-lambda": "^0.0.13",
     "@types/node": "^7.0.31",
     "eslint": "^3.9.1",
@@ -15,7 +16,6 @@
     "serverless-plugin-typescript": "^0.3.1"
   },
   "dependencies": {
-    "aws-sdk": "^2.7.10",
     "axios": "^0.15.3",
     "cron-parser": "^2.2.1",
     "moment": "^2.17.1",
