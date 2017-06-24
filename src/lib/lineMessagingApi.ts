@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export class LineMessagingAPI {
-  client: any;
+  client: AxiosInstance;
 
   constructor(channelAccessToken: string) {
     this.client = axios.create({
@@ -9,8 +9,8 @@ export class LineMessagingAPI {
       timeout: 3000,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${channelAccessToken}`
-      }
+        Authorization: `Bearer ${channelAccessToken}`,
+      },
     });
   }
 
@@ -20,9 +20,9 @@ export class LineMessagingAPI {
       messages: [
         {
           type: 'text',
-          text
-        }
-      ]
+          text,
+        },
+      ],
     };
     this.request('/reply', body);
   }
@@ -33,21 +33,19 @@ export class LineMessagingAPI {
       messages: [
         {
           type: 'text',
-          text
-        }
-      ]
+          text,
+        },
+      ],
     };
     this.request('/push', body);
   }
 
-  private request(endpoint: string, body: Object): void {
-    this.client
-      .post(endpoint, JSON.stringify(body))
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error.response.data);
-      });
+  private async request(endpoint: string, body: Object): Promise<void> {
+    try {
+      const response = await this.client.post(endpoint, JSON.stringify(body));
+      console.log(response);
+    } catch (e) {
+      console.log(e.response.data);
+    }
   }
 }
