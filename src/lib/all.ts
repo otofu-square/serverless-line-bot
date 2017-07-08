@@ -1,8 +1,8 @@
+import { client } from './client';
 import { LineMessagingAPI } from './lineMessagingApi';
 import { Reminders } from './reminder';
-import { client } from './client';
 
-const createResult = (data: Array<any>): string => {
+const createResult = (data: any[]): string => {
   let str = '';
   for (let i = 0; i < data.length; i += 1) {
     str += `id: ${data[i].id.slice(0, 5)}...,\n`;
