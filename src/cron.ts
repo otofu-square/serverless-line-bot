@@ -1,4 +1,4 @@
-import { APIGatewayEvent, Context, Callback } from 'aws-lambda';
+import { APIGatewayEvent, Callback, Context } from 'aws-lambda';
 
 export const main = (
   event: APIGatewayEvent,

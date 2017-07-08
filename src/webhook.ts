@@ -1,9 +1,9 @@
-import { APIGatewayEvent, Context, Callback } from 'aws-lambda';
+import { APIGatewayEvent, Callback, Context } from 'aws-lambda';
 
 import { all } from './lib/all';
-import { ping } from './lib/ping';
 import { create } from './lib/create';
 import { deleteBySubId } from './lib/deleteBySubId';
+import { ping } from './lib/ping';
 
 const createResponse = (event: any): Object => ({
   statusCode: 200,

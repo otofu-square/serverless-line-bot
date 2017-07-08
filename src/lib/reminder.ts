@@ -22,7 +22,7 @@ export class Reminders {
       to,
       cron,
       message,
-      id: uuid.v1(),
+      id: (uuid as any).v1(),
       item: moment().utc().toISOString(),
     };
     const params = {
