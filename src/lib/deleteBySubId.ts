@@ -1,6 +1,6 @@
-import { client } from './client';
-import { LineMessagingAPI } from './lineMessagingApi';
-import { Reminders } from './reminder';
+import { client } from "./client";
+import { LineMessagingAPI } from "./lineMessagingApi";
+import { Reminders } from "./reminder";
 
 export const deleteBySubId = async (
   replyToken: string,

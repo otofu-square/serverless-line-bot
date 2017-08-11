@@ -1,9 +1,9 @@
-import { client } from './client';
-import { LineMessagingAPI } from './lineMessagingApi';
-import { Reminders } from './reminder';
+import { client } from "./client";
+import { LineMessagingAPI } from "./lineMessagingApi";
+import { Reminders } from "./reminder";
 
 const parseInfo = (info: string): string[] => {
-  const arr = info.split(' ');
+  const arr = info.split(" ");
   return arr;
 };
 

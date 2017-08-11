@@ -1,19 +1,19 @@
-import { DynamoDB } from 'aws-sdk';
-import * as moment from 'moment';
-import * as uuid from 'uuid';
+import { DynamoDB } from "aws-sdk";
+import * as moment from "moment";
+import * as uuid from "uuid";
 
-const dynamoDB = new DynamoDB.DocumentClient({ region: 'ap-northeast-1' });
-const TableName = 'reminders';
+const dynamoDB = new DynamoDB.DocumentClient({ region: "ap-northeast-1" });
+const tableName = "reminders";
 
 export class Reminders {
-  static all(): Promise<DynamoDB.ScanOutput> {
+  public static all(): Promise<DynamoDB.ScanOutput> {
     const params = {
-      TableName,
+      TableName: tableName,
     };
     return dynamoDB.scan(params).promise();
   }
 
-  static create(
+  public static create(
     to: string,
     cron: string,
     message: string,
@@ -26,24 +26,24 @@ export class Reminders {
       item: moment().utc().toISOString(),
     };
     const params = {
-      TableName,
+      TableName: tableName,
       Item: item,
     };
     return dynamoDB.put(params).promise();
   }
 
-  static find(subId: string): Promise<DynamoDB.ScanOutput> {
+  public static find(subId: string): Promise<DynamoDB.ScanOutput> {
     const params = {
-      TableName,
-      FilterExpression: 'contains(id, :val)',
-      ExpressionAttributeValues: { ':val': subId },
+      TableName: tableName,
+      FilterExpression: "contains(id, :val)",
+      ExpressionAttributeValues: { ":val": subId },
     };
     return dynamoDB.scan(params).promise();
   }
 
-  static delete(id: string): Promise<DynamoDB.DeleteItemOutput> {
+  public static delete(id: string): Promise<DynamoDB.DeleteItemOutput> {
     const params = {
-      TableName,
+      TableName: tableName,
       Key: {
         id,
       },

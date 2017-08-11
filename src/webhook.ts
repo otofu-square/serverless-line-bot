@@ -1,14 +1,14 @@
-import { APIGatewayEvent, Callback, Context } from 'aws-lambda';
+import { APIGatewayEvent, Callback, Context } from "aws-lambda";
 
-import { all } from './lib/all';
-import { create } from './lib/create';
-import { deleteBySubId } from './lib/deleteBySubId';
-import { ping } from './lib/ping';
+import { all } from "./lib/all";
+import { create } from "./lib/create";
+import { deleteBySubId } from "./lib/deleteBySubId";
+import { ping } from "./lib/ping";
 
-const createResponse = (event: any): Object => ({
+const createResponse = (event: any): object => ({
   statusCode: 200,
   body: JSON.stringify({
-    message: 'Go Serverless v1.0! Your function executed successfully!',
+    message: "Go Serverless v1.0! Your function executed successfully!",
     body: event.body,
   }),
 });
@@ -17,7 +17,7 @@ const getFrom = (source: any): string => {
   if (source.groupId) return source.groupId;
   if (source.roomId) return source.roomId;
   if (source.userId) return source.userId;
-  return 'undefined';
+  return "undefined";
 };
 
 export const main = (
@@ -30,8 +30,8 @@ export const main = (
   const text = lineEvent.message.text;
   const from = getFrom(lineEvent.source);
 
-  if (text === 'ping') ping(replyToken);
-  if (text === 'reminder all') all(replyToken);
+  if (text === "ping") ping(replyToken);
+  if (text === "reminder all") all(replyToken);
   if (text.match(/^reminder delete /)) {
     deleteBySubId(replyToken, text.match(/^reminder delete (.*)/)[1]);
   }
