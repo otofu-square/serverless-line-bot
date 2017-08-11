@@ -18,6 +18,10 @@
   version "7.0.39"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.39.tgz#8aced4196387038113f6f9aa4014ab4c51edab3c"
 
+"@types/ramda@^0.24.7":
+  version "0.24.7"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.24.7.tgz#4d3c3696e019acd63486e1119f1067c9d59da8e8"
+
 "@types/uuid@^3.0.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.0.tgz#91639516fbb892ed3737a2bdc1b030d02b4a09c1"
@@ -1080,6 +1084,10 @@ qs@^6.1.0:
 querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
+
+ramda@^0.24.1:
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.24.1.tgz#c3b7755197f35b8dc3502228262c4c91ddb6b857"
 
 raven@^1.2.1:
   version "1.2.1"
