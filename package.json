@@ -17,6 +17,7 @@
     "tslint-config-prettier": "^1.1.0"
   },
   "dependencies": {
+    "@line/bot-sdk": "^2.0.0",
     "axios": "^0.15.3",
     "cron-parser": "^2.2.1",
     "moment": "^2.17.1",
