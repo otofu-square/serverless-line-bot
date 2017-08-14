@@ -14,8 +14,8 @@ export class LineMessagingAPI {
     });
   }
 
-  public reply(replyToken: string, text: string): void {
-    const body = {
+  public reply(replyToken: string, text: string) {
+    this.request("/reply", {
       replyToken,
       messages: [
         {
@@ -23,12 +23,11 @@ export class LineMessagingAPI {
           text,
         },
       ],
-    };
-    this.request("/reply", body);
+    });
   }
 
   public push(to: string, text: string): void {
-    const body = {
+    this.request("/push", {
       to,
       messages: [
         {
@@ -36,8 +35,7 @@ export class LineMessagingAPI {
           text,
         },
       ],
-    };
-    this.request("/push", body);
+    });
   }
 
   private async request(endpoint: string, body: object): Promise<void> {

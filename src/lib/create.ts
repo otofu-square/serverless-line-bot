@@ -2,19 +2,20 @@ import { client } from "./client";
 import { LineMessagingAPI } from "./lineMessagingApi";
 import { Reminders } from "./reminder";
 
-const parseInfo = (info: string): string[] => {
-  const arr = info.split(" ");
-  return arr;
-};
+import { lensIndex, pipe, view } from "ramda";
+
+const parseInfo = (info: string) => info.split(" ");
+
+const getCronFromInfo = pipe(parseInfo, view(lensIndex(0)));
+const getMessageFromInfo = pipe(parseInfo, view(lensIndex(1)));
 
 export const create = async (
   replyToken: string,
   to: string,
   info: string,
 ): Promise<void> => {
-  const parsedInfo = parseInfo(info);
-  const cron = parsedInfo[0];
-  const message = parsedInfo[1];
+  const cron = getCronFromInfo(info);
+  const message = getMessageFromInfo(info);
 
   try {
     await Reminders.create(to, cron, message);
