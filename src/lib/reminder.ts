@@ -5,49 +5,42 @@ import * as uuid from "uuid";
 const dynamoDB = new DynamoDB.DocumentClient({ region: "ap-northeast-1" });
 const tableName = "reminders";
 
-export class Reminders {
-  public static all(): Promise<DynamoDB.ScanOutput> {
-    const params = {
+export const all = () =>
+  dynamoDB
+    .scan({
       TableName: tableName,
-    };
-    return dynamoDB.scan(params).promise();
-  }
+    })
+    .promise();
 
-  public static create(
-    to: string,
-    cron: string,
-    message: string,
-  ): Promise<DynamoDB.PutItemOutput> {
-    const item = {
-      to,
-      cron,
-      message,
-      id: (uuid as any).v1(),
-      item: moment().utc().toISOString(),
-    };
-    const params = {
+export const create = (to: string, cron: string, message: string) =>
+  dynamoDB
+    .put({
       TableName: tableName,
-      Item: item,
-    };
-    return dynamoDB.put(params).promise();
-  }
+      Item: {
+        to,
+        cron,
+        message,
+        id: (uuid as any).v1(),
+        item: moment().utc().toISOString(),
+      },
+    })
+    .promise();
 
-  public static find(subId: string): Promise<DynamoDB.ScanOutput> {
-    const params = {
+export const find = (subId: string) =>
+  dynamoDB
+    .scan({
       TableName: tableName,
       FilterExpression: "contains(id, :val)",
       ExpressionAttributeValues: { ":val": subId },
-    };
-    return dynamoDB.scan(params).promise();
-  }
+    })
+    .promise();
 
-  public static delete(id: string): Promise<DynamoDB.DeleteItemOutput> {
-    const params = {
+export const deleted = (id: string) =>
+  dynamoDB
+    .delete({
       TableName: tableName,
       Key: {
         id,
       },
-    };
-    return dynamoDB.delete(params).promise();
-  }
-}
+    })
+    .promise();

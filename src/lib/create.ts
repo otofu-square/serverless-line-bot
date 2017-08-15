@@ -1,13 +1,20 @@
 import { client } from "./client";
 import { LineMessagingAPI } from "./lineMessagingApi";
-import { Reminders } from "./reminder";
+import * as Reminders from "./reminder";
 
 import { lensIndex, pipe, view } from "ramda";
 
 const parseInfo = (info: string) => info.split(" ");
 
-const getCronFromInfo = pipe(parseInfo, view(lensIndex(0)));
-const getMessageFromInfo = pipe(parseInfo, view(lensIndex(1)));
+const getCronFromInfo = pipe<string, string[], string>(
+  parseInfo,
+  view(lensIndex(0)),
+);
+
+const getMessageFromInfo = pipe<string, string[], string>(
+  parseInfo,
+  view(lensIndex(1)),
+);
 
 export const create = async (
   replyToken: string,
